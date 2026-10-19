@@ -401,4 +401,8 @@ The full guide is in [qa-coverage-kit/SETUP.md](qa-coverage-kit/SETUP.md).
 
 ---
 
+## License
+
+Released under the [MIT License](LICENSE). The example release run in `docs/` uses invented tickets and data.
+
 *Built by Andrew Lawrence.*
