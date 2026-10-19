@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@0.0.82",
+        "--browser", "chrome",
+        "--isolated",
+        "--storage-state", "playwright-qa/scripts/fixtures/auth.json",
+        "--headless",
+        "--viewport-size", "1280x720",
+        "--output-dir", "playwright-qa/qa-output/screenshots"
+      ]
+    }
+  }
+}

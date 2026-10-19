@@ -1,0 +1,21 @@
+# Credentials — NEVER commit
+scripts/.env
+scripts/fixtures/auth.json
+
+# Dependencies and Playwright output
+scripts/node_modules/
+scripts/playwright-report/
+scripts/test-results/
+.playwright-mcp/
+scripts/.playwright-mcp/
+
+# /qa-coverage working files — run drafts (resume state) and MCP output / evidence
+qa-output/drafts/
+qa-output/screenshots/
+
+# Markdown is tracked by default: this workspace's instruction files are Markdown.
+# Ignore specific generated or scratch docs by name, never with a blanket *.md rule.
+
+*.tsbuildinfo
+.DS_Store
+Thumbs.db

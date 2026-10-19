@@ -1,0 +1,22 @@
+{
+  "name": "qa-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Black-box Playwright E2E suite, maintained with the /qa-coverage skill",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:smoke": "playwright test tests/core/smoke/smoke.spec.ts",
+    "setup": "playwright test tests/auth.setup.ts",
+    "report": "playwright show-report",
+    "qa:ledger": "node utils/qa-ledger.mjs",
+    "qa:baseline": "node utils/qa-baseline.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.0.0",
+    "dotenv": "^17.4.2",
+    "typescript": "^5.0.0"
+  }
+}

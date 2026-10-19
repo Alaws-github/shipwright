@@ -1,0 +1,4 @@
+{
+  "_comment": "Non-secret IDs and names of records the tests rely on. These drift when the test environment is reseeded — verify live before blaming a regression.",
+  "knownRecords": {}
+}

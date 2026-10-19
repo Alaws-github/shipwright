@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(/playwright-qa/scripts/.env)",
+      "Read(/playwright-qa/scripts/fixtures/auth.json)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-secret-reads.mjs\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

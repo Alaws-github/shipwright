@@ -1,0 +1,39 @@
+# Project values the /qa-coverage skill reads. If the project already has a workflow.toml,
+# merge these sections into it. Every value marked REQUIRED must be set before the first run.
+
+[git]
+base_branch = "develop"                      # REQUIRED — branch work merges into (used for spec reads and git hints)
+
+[jira]
+site = "your-org.atlassian.net"              # REQUIRED — also used for links in jira-test-mapping.md
+project = "PROJ"                             # REQUIRED — project key
+qa_status = "In QA"                          # REQUIRED — status a ticket sits in while QA tests it
+qa_passed_status = "Ready for Release"       # REQUIRED — where QA moves a ticket that passes
+qa_failed_status = "In Progress"             # REQUIRED — where QA moves a ticket that fails
+bug_issue_type = "Bug"
+bug_labels = ["qa-coverage"]
+
+# Jira priority name → test-case priority (Critical / High / Medium / Low).
+# A priority not listed here is asked about at Gate 2.
+[jira.priority_map]
+"Highest" = "Critical"
+"High" = "High"
+"Medium" = "Medium"
+"Low" = "Low"
+"Lowest" = "Low"
+
+[qa]
+test_url = "https://test.example.com"        # REQUIRED — the deployed environment the suite runs against
+frontend_paths = ["src/"]                    # repo paths whose commits mean a browser-visible change; empty if the app's code isn't in this repo
+session_minutes = 30                         # how long a login lasts on the test environment
+release_tracking_label = ""                  # optional — label of a per-release tracking ticket that records the QA sign-off
+
+[confluence]
+space_key = ""                               # optional — e.g. "QA"; leave the three values empty to keep the report in the draft only
+space_id = ""                                # numeric space ID (getConfluenceSpaces) — createConfluencePage needs it
+qa_reports_page = ""                         # parent page ID the release reports are created under
+
+# Optional — only if Jira tickets are generated from feature spec files with permanent AC IDs.
+[features]
+spec_dir = ""                                # e.g. "docs/features"
+label_prefix = ""                            # e.g. "feature-" → story label feature-<feature>-s<n>

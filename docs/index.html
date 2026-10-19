@@ -1,0 +1,425 @@
+<title>Shipwright</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single left-aligned case-study column; a dark terminal band carries the subject's own artefacts (commands, docstrings, ledger output). */
+:root {
+  --bg: #F4F6FA;
+  --surface: #FFFFFF;
+  --ink: #131926;
+  --muted: #566077;
+  --line: #D9DFEA;
+  --accent: #2C47C4;
+  --accent-soft: #E5E9FB;
+  --pass: #1D7449;
+  --fail: #B1271F;
+  --warn: #87580A;
+  --term-bg: #0E1320;
+  --term-fg: #D5DCE9;
+  --term-dim: #7D88A0;
+  --term-green: #6FD39C;
+  --term-blue: #9DB0FF;
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1017; --surface: #141A25; --ink: #E5E9F1; --muted: #98A2B6; --line: #253046;
+    --accent: #93A5FF; --accent-soft: #1B2446; --pass: #61C892; --fail: #F28B83; --warn: #E1B355;
+    --term-bg: #070A10; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1017; --surface: #141A25; --ink: #E5E9F1; --muted: #98A2B6; --line: #253046;
+  --accent: #93A5FF; --accent-soft: #1B2446; --pass: #61C892; --fail: #F28B83; --warn: #E1B355;
+  --term-bg: #070A10; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 1rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1040px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+section { padding-block: 64px 8px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 750; font-stretch: 112%; letter-spacing: -0.01em; }
+h3 { font-size: 1.1rem; font-weight: 700; font-stretch: 105%; }
+p { margin: 0; }
+.prose { max-width: 66ch; display: grid; gap: 14px; }
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 62ch; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent);
+}
+.section-head { display: grid; gap: 10px; margin-bottom: 28px; }
+code, .mono { font-family: var(--font-mono); font-size: 0.88em; }
+:not(pre) > code { background: var(--accent-soft); color: var(--ink); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 72px 24px; display: grid; gap: 22px; }
+.byline { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; }
+.byline strong { color: var(--ink); font-weight: 500; }
+.hero h1 {
+  font-size: clamp(2.6rem, 8vw, 5.4rem); font-weight: 800; font-stretch: 125%;
+  letter-spacing: -0.03em; line-height: 0.95;
+}
+.hero h1 .slash { color: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-family: var(--font-mono); font-size: 0.75rem; padding: 4px 10px;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--surface);
+}
+
+/* Terminal */
+.term {
+  background: var(--term-bg); color: var(--term-fg); border-radius: 10px;
+  font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.7;
+  overflow-x: auto; margin: 0;
+}
+.term-bar {
+  display: flex; align-items: center; gap: 8px; padding: 10px 16px;
+  border-bottom: 1px solid #ffffff14; color: var(--term-dim); font-size: 0.75rem;
+}
+.term-bar i { width: 9px; height: 9px; border-radius: 50%; background: #ffffff22; display: inline-block; }
+.term pre { margin: 0; padding: 16px 18px; white-space: pre; }
+.term .c { color: var(--term-dim); }
+.term .p { color: var(--term-green); }
+.term .k { color: var(--term-blue); }
+
+/* Facts strip */
+.facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 40px;
+}
+.fact { padding: 18px 16px 18px 0; display: grid; gap: 2px; }
+.fact b {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 750; font-stretch: 110%;
+  font-variant-numeric: tabular-nums; line-height: 1;
+}
+.fact span { font-size: 0.85rem; color: var(--muted); }
+
+/* Two-column */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+.split > * { min-width: 0; }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } }
+
+.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.list li { padding-left: 22px; position: relative; }
+.list li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); }
+.list.no li::before { background: transparent; border: 1.5px solid var(--muted); }
+.col-label { font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 12px; }
+
+/* Flow */
+.flow { list-style: none; margin: 0; padding: 0; display: grid; border-left: 2px solid var(--line); margin-left: 14px; }
+.step { display: grid; grid-template-columns: 48px 1fr; gap: 6px 14px; padding: 12px 0; position: relative; }
+.step > div { min-width: 0; }
+.step .n {
+  margin-left: -15px; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--surface); border: 2px solid var(--line); color: var(--muted);
+  display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.75rem; font-variant-numeric: tabular-nums;
+}
+.step .t { font-weight: 600; }
+.step .d { color: var(--muted); font-size: 0.93rem; }
+.step.gate .n { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.step.gate .t { color: var(--accent); }
+.step.write .n { border-color: var(--warn); color: var(--warn); }
+.who { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; margin-left: 8px; color: var(--muted); font-weight: 400; }
+.gate .who { color: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.85rem; color: var(--muted); margin-top: 18px; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--line); background: var(--surface); }
+.dot.g { background: var(--accent); border-color: var(--accent); }
+.dot.w { border-color: var(--warn); }
+.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 32px; }
+.mode { border-top: 2px solid var(--ink); padding-top: 12px; display: grid; gap: 6px; }
+.mode code { font-size: 0.82rem; }
+.mode p { color: var(--muted); font-size: 0.93rem; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.92rem; }
+th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 600; white-space: nowrap; }
+.pill { display: inline-block; font-family: var(--font-mono); font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.pill.pass { color: var(--pass); } .pill.fail { color: var(--fail); } .pill.warn { color: var(--warn); } .pill.info { color: var(--accent); }
+
+/* Decision cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.card { background: var(--surface); padding: 22px; display: grid; gap: 8px; align-content: start; }
+.card p { color: var(--muted); font-size: 0.94rem; }
+
+/* Lessons */
+.lessons { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px 32px; }
+.lesson { display: grid; gap: 6px; }
+.lesson .slug { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); overflow-wrap: anywhere; }
+.lesson p { font-size: 0.94rem; color: var(--muted); }
+
+/* Adopt */
+.adopt { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.adopt .file { border: 1px solid var(--line); border-radius: 10px; padding: 16px; background: var(--surface); display: grid; gap: 6px; }
+.adopt .file code { background: none; padding: 0; color: var(--accent); font-weight: 500; overflow-wrap: anywhere; }
+.adopt .file p { font-size: 0.9rem; color: var(--muted); }
+.verify { display: flex; gap: 12px; align-items: flex-start; border: 1px solid var(--line); border-left: 3px solid var(--pass); border-radius: 6px; padding: 14px 16px; background: var(--surface); margin-top: 24px; font-size: 0.93rem; }
+.verify > div { min-width: 0; }
+
+.stack { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); }
+.stack b { color: var(--ink); font-weight: 500; }
+
+footer { padding-block: 72px 56px; color: var(--muted); font-size: 0.88rem; }
+footer .wrap { border-top: 1px solid var(--line); padding-top: 22px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<header class="wrap hero">
+  <p class="byline"><strong>Shipwright</strong> · Andrew Lawrence · QA Automation case study</p>
+  <h1><span class="slash">/</span>qa-coverage</h1>
+  <p class="lede">An AI-assisted QA workflow that keeps a Playwright end-to-end suite true to what actually shipped. I built it on the Anser project, then turned it into a kit that installs on any web project with a Jira board and a test environment.</p>
+  <div class="tags">
+    <span class="tag">Playwright + TypeScript</span>
+    <span class="tag">Claude Code skill</span>
+    <span class="tag">Playwright MCP</span>
+    <span class="tag">Jira + Confluence</span>
+    <span class="tag">Page Object Model</span>
+    <span class="tag">Node tooling</span>
+  </div>
+  <div class="term" role="figure" aria-label="The three ways to run the skill">
+    <div class="term-bar"><i></i><i></i><i></i><span>claude — repo root</span></div>
+<pre><span class="p">›</span> <span class="k">/qa-coverage release</span> "2026-09 R4"     <span class="c"># every ticket in the Jira fixVersion</span>
+<span class="p">›</span> <span class="k">/qa-coverage</span> PROJ-327                 <span class="c"># one ticket: hotfix, re-check, held ticket</span>
+<span class="p">›</span> <span class="k">/qa-coverage</span> "&lt;what I tested&gt;"        <span class="c"># a feature tested by hand, no ticket</span></pre>
+  </div>
+  <div class="facts">
+    <div class="fact"><b>3</b><span>run modes</span></div>
+    <div class="fact"><b>13</b><span>steps per release</span></div>
+    <div class="fact"><b>3</b><span>human review gates</span></div>
+    <div class="fact"><b>0</b><span>Jira writes before Gate 3</span></div>
+    <div class="fact"><b>17</b><span>codified QA lessons</span></div>
+  </div>
+</header>
+
+<main>
+<section class="wrap" id="problem">
+  <div class="section-head">
+    <p class="eyebrow">The problem</p>
+    <h2>Every release, the suite drifts away from the app</h2>
+  </div>
+  <div class="split">
+    <div class="prose">
+      <p>On a live project, each release changes the UI. Some test failures mean the release changed something on purpose. Others mean it broke something. Telling those apart by hand is slow, and getting it wrong is costly in both directions. A regression accepted as "the new behaviour" ships to production. An intended change reported as a bug wastes a developer's afternoon.</p>
+      <p>The paperwork adds up too: reading every ticket in the release, writing tests, keeping test IDs and docs consistent, commenting on and transitioning tickets, filing bugs with evidence, and writing a release report.</p>
+    </div>
+    <div class="prose">
+      <p>The approach I took was to let an agent do the exploration, test writing and bookkeeping, and to keep every judgement call with the QA analyst. The rule that holds it together:</p>
+      <p style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 650; font-stretch: 105%; line-height: 1.3; color: var(--ink);">The ticket says what was intended. The app says what exists. Where they disagree, the app wins, and the disagreement is reported as a finding. It is never resolved silently.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="how">
+  <div class="section-head">
+    <p class="eyebrow">How it works</p>
+    <h2>Thirteen steps, three gates, one draft file</h2>
+    <p class="lede">At each gate the agent writes its proposals to a draft Markdown file with checkboxes, then stops. The analyst ticks boxes and edits drafted cases in that file. A box left unticked counts as a question, never as approval.</p>
+  </div>
+  <ol class="flow">
+    <li class="step"><span class="n">1</span><div><p class="t">Intake<span class="who">agent</span></p><p class="d">Pull every ticket in the fixVersion from Jira, including tickets held by an earlier run.</p></div></li>
+    <li class="step"><span class="n">2</span><div><p class="t">Triage<span class="who">agent</span></p><p class="d">Sort each ticket: testable, too thin (no usable acceptance criteria), no browser-visible change (checked against git), or already covered.</p></div></li>
+    <li class="step"><span class="n">3</span><div><p class="t">Baseline run<span class="who">agent</span></p><p class="d">Run the whole suite against the deployed release and classify every unexpected failure.</p></div></li>
+    <li class="step"><span class="n">4</span><div><p class="t">Group by area<span class="who">agent</span></p><p class="d">Map changed files to routes using git history and the project's app map.</p></div></li>
+    <li class="step"><span class="n">5</span><div><p class="t">Explore the live app<span class="who">agent</span></p><p class="d">Walk each area in a real browser through Playwright MCP. Every mismatch with the ticket becomes a numbered finding with a screenshot.</p></div></li>
+    <li class="step gate"><span class="n">6</span><div><p class="t">Gate 1: coverage impact<span class="who">analyst</span></p><p class="d">Which tickets proceed, how to read each undecided failure, answers to open questions.</p></div></li>
+    <li class="step gate"><span class="n">7</span><div><p class="t">Gate 2: drafted tests<span class="who">analyst</span></p><p class="d">Approve, edit or reject each proposed test case and the script plan.</p></div></li>
+    <li class="step"><span class="n">8</span><div><p class="t">Write tests<span class="who">agent</span></p><p class="d">Page objects and specs, using IDs scoped to the ticket.</p></div></li>
+    <li class="step"><span class="n">9</span><div><p class="t">Run to green<span class="who">agent</span></p><p class="d">At most 3 fix attempts per test, then re-run every spec that uses a changed page object.</p></div></li>
+    <li class="step"><span class="n">10</span><div><p class="t">Reconcile<span class="who">agent</span></p><p class="d">Regenerate the test index and Jira mapping, and stage screenshots for attaching.</p></div></li>
+    <li class="step gate"><span class="n">11</span><div><p class="t">Gate 3: decisions<span class="who">analyst</span></p><p class="d">Pass, fail or hold per ticket. File a bug, not a bug, or known per finding. Release sign-off.</p></div></li>
+    <li class="step write"><span class="n">12</span><div><p class="t">Publish the report<span class="who">agent, after approval</span></p><p class="d">A per-ticket QA coverage report, created or updated in Confluence.</p></div></li>
+    <li class="step write"><span class="n">13</span><div><p class="t">Jira actions<span class="who">agent, after approval</span></p><p class="d">Bugs first (duplicate-checked, then linked), then transitions and evidence comments. The analyst approves the whole batch first.</p></div></li>
+  </ol>
+  <div class="legend">
+    <span><i class="dot"></i>Agent, read-only outside the repo</span>
+    <span><i class="dot g"></i>Hard stop: the analyst decides</span>
+    <span><i class="dot w"></i>External write, approved as a batch</span>
+  </div>
+  <div class="modes">
+    <div class="mode"><h3>Release</h3><code>/qa-coverage release "&lt;fixVersion&gt;"</code><p>All 13 steps. Produces the Confluence report and the release sign-off.</p></div>
+    <div class="mode"><h3>Single ticket</h3><code>/qa-coverage PROJ-123</code><p>Runs only the affected specs instead of a full baseline. Evidence goes straight into the Jira comment.</p></div>
+    <div class="mode"><h3>Manual test</h3><code>/qa-coverage "&lt;what I did&gt;"</code><p>Turns hand testing into automated coverage. Acceptance criteria come from what was observed, and the analyst confirms each one.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="classify">
+  <div class="section-head">
+    <p class="eyebrow">The core judgement</p>
+    <h2>Is a red test an intended change or a regression?</h2>
+    <p class="lede">Every unexpected failure in the baseline run lands in one class, and each class requires specific evidence. When the evidence is ambiguous, the agent doesn't pick. It hands the call to the analyst.</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Class</th><th>Evidence required</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill info">Intended change</span></td><td>A ticket in this release describes the new behaviour, and the app shows exactly that.</td><td>The test update is proposed at Gate 1, citing the ticket and AC. The test is tagged with that ticket.</td></tr>
+        <tr><td><span class="pill pass">Test mechanics</span></td><td>Behaviour is unchanged, but markup, role or position moved, so the locator no longer matches.</td><td>The locator is fixed without approval. What the test asserts must not change.</td></tr>
+        <tr><td><span class="pill fail">Possible regression</span></td><td>Behaviour differs from the test, and no ticket in scope accounts for it.</td><td>The test is left alone. The failure is reported and linked to the likely ticket through git history, with a confidence level.</td></tr>
+        <tr><td><span class="pill warn">Environment</span></td><td>Session expiry, fixture drift, leftover data, a toolchain crash, or the suite running ahead of the deployed build.</td><td>The test or fixture is fixed, and an <code>ISS-TS-&lt;slug&gt;</code> entry is logged.</td></tr>
+        <tr><td><span class="pill">Undecided</span></td><td>The evidence fits two classes.</td><td>Listed at Gate 1 with both candidates. The analyst decides.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap" id="decisions">
+  <div class="section-head">
+    <p class="eyebrow">Design decisions</p>
+    <h2>Guardrails built into the design</h2>
+  </div>
+  <div class="cards">
+    <div class="card"><h3>Never test unseen behaviour</h3><p>A ticket marked Done may not be deployed. Tests are written only for behaviour observed in the live app. Tests written from ticket text alone can read perfectly and test nothing.</p></div>
+    <div class="card"><h3>No invented acceptance criteria</h3><p>If a ticket has no usable ACs, it becomes a question at Gate 1. A made-up AC turns into a test asserting something nobody agreed to, and it looks as trustworthy as every other test.</p></div>
+    <div class="card"><h3>"How" versus "what"</h3><p>The agent may change how a test finds things (locators, waits) on its own. It may change what a test expects only with a ticket or the analyst's approval. It never weakens an assertion to get a green run.</p></div>
+    <div class="card"><h3>Write tools not pre-approved</h3><p>Jira and Confluence read tools are pre-approved. Write tools are left off on purpose, so every external write raises a permission prompt as well as passing Gate 3.</p></div>
+    <div class="card"><h3>Credentials kept out of context</h3><p>Deny rules block the Read tool on <code>.env</code> and the saved login. A PreToolUse hook closes the shell gap (<code>cat</code>, <code>Get-Content</code>, <code>cp</code>).</p></div>
+    <div class="card"><h3>IDs that never collide</h3><p>Tests are numbered within their ticket (<code>PROJ-327-2</code>), not from a shared counter. Two branches or agent runs can't pick the same ID, and nothing ever needs renumbering.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="engineering">
+  <div class="section-head">
+    <p class="eyebrow">Under the hood</p>
+    <h2>The spec is the record; the docs are generated</h2>
+  </div>
+  <div class="split">
+    <div class="prose">
+      <p>Each test carries a one-line docstring in a fixed format: ID, title, ticket and AC, type, priority. A plain-language <em>Verifies</em> line follows for non-technical readers.</p>
+      <p><code>qa-ledger</code> is a dependency-free Node script. It parses the specs statically, checks every ID and docstring, and regenerates the test index, the Jira-to-test mapping and the summary blocks in the suite's README and CLAUDE.md. It normalises line endings so the staleness check works on Windows checkouts. <code>--check</code> fails CI when anything is stale or malformed.</p>
+      <p><code>qa-baseline</code> reads Playwright's JSON report and lists every unexpected result. It flags <code>test.fail()</code> tests that started passing, which means a known bug looks fixed.</p>
+    </div>
+    <div style="display:grid; gap:16px; min-width:0;">
+      <div class="term" role="figure" aria-label="Test docstring format">
+        <div class="term-bar"><i></i><i></i><i></i><span>tests/core/orders/orders.spec.ts</span></div>
+<pre><span class="c">/** PROJ-327-1: Order total includes tax | PROJ-327 AC2 | Positive | High
+ *  Verifies: the order detail page shows a total equal
+ *  to subtotal plus tax for a taxable order. */</span>
+<span class="k">test</span>(<span class="p">'PROJ-327-1 — order total includes tax'</span>,
+  { tag: [<span class="p">'@PROJ-327'</span>] }, <span class="k">async</span> ({ page }) =&gt; {</pre>
+      </div>
+      <div class="term" role="figure" aria-label="qa-ledger check output">
+        <div class="term-bar"><i></i><i></i><i></i><span>npm run qa:ledger -- --check</span></div>
+<pre>qa-ledger
+─────────────────────────────
+Declared tests:     1 (1 active, 0 expected-fail, 0 skipped)
+ID scheme:          0 ticket-scoped · 1 MAN-* · 0 not automated
+Known failures:     0 → none
+Errors:             <span class="p">0</span>
+Warnings:           <span class="p">0</span>
+─────────────────────────────</pre>
+      </div>
+    </div>
+  </div>
+  <div class="split" style="margin-top:32px;">
+    <div><p class="col-label">Suite conventions</p>
+      <ul class="list">
+        <li>Page Object Model with no selectors in spec files. Methods are named for what the user does, so the spec reads as the test's steps.</li>
+        <li>Sequential, single-worker runs against the shared live environment, so tests don't collide on data or logins.</li>
+        <li>Login cached and reused only while its remaining lifetime covers a whole run.</li>
+        <li><code>test.fail()</code> marks a test that asserts correct behaviour against a known bug. It turns red when the bug is fixed.</li>
+        <li>Records the suite creates use a fixed prefix and are cleaned up before and after each run.</li>
+      </ul>
+    </div>
+    <div><p class="col-label">What it deliberately doesn't do</p>
+      <ul class="list no">
+        <li>Write to Jira or Confluence before Gate 3.</li>
+        <li>Change what an existing test expects without a ticket or approval.</li>
+        <li>Retry a flaky test into a pass, or add blind <code>waitForTimeout</code> calls.</li>
+        <li>Check calculations, performance or security. Those belong in backend tests.</li>
+        <li>Upload attachments or rank the backlog. It lists both for the analyst instead.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="lessons">
+  <div class="section-head">
+    <p class="eyebrow">QA-LESSONS.md</p>
+    <h2>Problems the suite already paid for, written down as rules</h2>
+    <p class="lede">The kit ships 17 rules taken from a mature suite. Each one says what to watch for, why it matters, and what enforces it. The agent re-reads them before writing any locator or wait. A selection:</p>
+  </div>
+  <div class="lessons">
+    <div class="lesson"><span class="slug">playwright-isvisible-is-one-shot</span><p><code>isVisible({ timeout })</code> ignores the timeout. Right after a navigation it reads <code>false</code> off a loading skeleton, which silently breaks cleanup guards.</p></div>
+    <div class="lesson"><span class="slug">the-suite-can-be-ahead-of-the-deployed-app</span><p>Check <code>git log</code> before calling a failure a regression. The spec may already carry a later ticket's change that isn't deployed yet.</p></div>
+    <div class="lesson"><span class="slug">an-expected-fail-test-must-fail-for-the-right-reason</span><p>A <code>test.fail()</code> test passes on any failure, including a broken locator. Run it as a plain test first and read the error.</p></div>
+    <div class="lesson"><span class="slug">a-cli-reporter-replaces-the-config-reporters</span><p><code>--reporter=line</code> drops the JSON report, so the baseline summary would silently describe the previous run.</p></div>
+    <div class="lesson"><span class="slug">hydration-can-wipe-early-input</span><p>On server-rendered React apps, text typed right after page load can be erased by hydration. Search helpers re-type inside the polling wait.</p></div>
+    <div class="lesson"><span class="slug">prefer-behaviour-assertions-size-coverage-to-risk</span><p>Assert outcomes (values, URL state, counts), not that an element is visible. Size the number of cases to risk, not to a quota.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="portable">
+  <div class="section-head">
+    <p class="eyebrow">Reusable on any project</p>
+    <h2>From one project's tool to a kit for any project</h2>
+    <p class="lede">The Anser version was wired into that project's routes, priorities and release pipeline. For the kit, I moved every project-specific value into config and made the Anser-only features optional.</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Anser version</th><th>Kit</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Called a separate <code>/bug-triage</code> skill</td><td>Files bugs itself: duplicate search, a triage table to confirm, create, link</td><td>No second skill to port</td></tr>
+        <tr><td>Legacy <code>TC-nnn</code> IDs and reserved ranges</td><td>Only <code>&lt;TICKET&gt;-&lt;n&gt;</code> and <code>MAN-&lt;slug&gt;-&lt;n&gt;</code></td><td>A new suite has no history to carry</td></tr>
+        <tr><td>Routes, priorities and timings in the skill text</td><td>Moved to <code>workflow.toml</code> and the suite's app map</td><td>Project values live in config</td></tr>
+        <tr><td>Release tracking ticket and feature specs required</td><td>Optional, switched on in <code>workflow.toml</code></td><td>They depended on Anser's release pipeline</td></tr>
+        <tr><td>V8 code-coverage fixture</td><td>Left out; can be ported later</td><td>Optional for a new project</td></tr>
+        <tr><td>Python secret-guard hook</td><td>Node hook</td><td>Node is already required by Playwright</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="col-label" style="margin-top:36px;">To adopt it, a project changes five things</p>
+  <div class="adopt">
+    <div class="file"><code>workflow.toml</code><p>Jira site, project key and QA status names, priority map, test URL, Confluence pages.</p></div>
+    <div class="file"><code>scripts/utils/auth.ts</code><p>The login route and form locators.</p></div>
+    <div class="file"><code>scripts/pages/HomePage.ts</code><p>One element that proves the landing page has rendered.</p></div>
+    <div class="file"><code>playwright-qa/CLAUDE.md</code><p>The app map: how source files map to routes, look-alike pages, UI library quirks, test roles.</p></div>
+    <div class="file"><code>SKILL.md</code> frontmatter<p>The Atlassian tool prefix, only if the project uses a different MCP server.</p></div>
+  </div>
+  <p style="margin-top:16px; color:var(--muted); max-width:66ch;">Everything else installs unchanged: the skill and its 7 reference files, the ledger and baseline scripts, the security hook, and the starter lessons. The first run is a single ticket. A full release comes after that.</p>
+
+  <div class="verify" role="note">
+    <span class="pill pass">Verified</span>
+    <div>Checked on 19 Oct 2026 with Node 22.22: <code>qa-ledger --check</code> exits 0 on the starter suite. The secret guard blocks <code>cat playwright-qa/scripts/.env</code> and <code>Get-Content fixtures/auth.json</code>, and lets <code>cat .claude/.env</code> and <code>npm test</code> through.</div>
+  </div>
+</section>
+
+<section class="wrap" id="stack">
+  <div class="section-head">
+    <p class="eyebrow">Stack</p>
+  </div>
+  <div class="stack">
+    <span><b>Playwright</b> 1.64 · TypeScript</span>
+    <span><b>@playwright/mcp</b> 0.0.82 (pinned)</span>
+    <span><b>Claude Code</b> skills, hooks, permissions</span>
+    <span><b>Atlassian</b> Jira + Confluence</span>
+    <span><b>Node</b> 20+</span>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Andrew Lawrence · QA Automation</span>
+    <span class="mono">shipwright</span>
+  </div>
+</footer>
