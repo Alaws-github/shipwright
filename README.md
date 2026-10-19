@@ -8,7 +8,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude_Code-skill_%2B_hooks-D97757)
 ![Jira](https://img.shields.io/badge/Jira_%2B_Confluence-integrated-0052CC?logo=jira&logoColor=white)
 
-Shipwright is the QA system I designed and built for the **Anser** project. I then generalised it into a drop-in kit that works on **any web project** with a Jira board and a deployed test environment. One command from a QA analyst does the following:
+Shipwright is a release-QA workflow for any web project that has a Jira board and a deployed test environment. It grew out of the process I used on the Anser project, and I rebuilt it as a kit that installs on a new project by editing a few config files. A QA analyst runs one command, and Shipwright:
 
 - reads every ticket in a release from Jira
 - runs the regression suite against the deployed build and works out which failures are intended changes and which are regressions
