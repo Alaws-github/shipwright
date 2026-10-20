@@ -1,0 +1,33 @@
+<!doctype html><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1280px;height:640px;background:#0E1320;color:#E5E9F1;font-family:"IBM Plex Sans",Arial,sans-serif;position:relative;overflow:hidden}
+.grid{position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:40px 40px}
+.glow{position:absolute;right:-120px;top:-160px;width:640px;height:640px;border-radius:50%;background:radial-gradient(#2C47C455,transparent 68%)}
+.wrap{position:absolute;left:96px;top:0;bottom:0;right:96px;display:flex;flex-direction:column;justify-content:center;gap:28px}
+.row{display:flex;align-items:center;gap:36px}
+.row svg{width:168px;height:168px;flex:none}
+h1{font-family:"Archivo",Arial,sans-serif;font-weight:800;font-stretch:125%;font-size:112px;letter-spacing:-.035em;line-height:.95}
+.tag{font-size:30px;line-height:1.35;color:#AEB8CC;max-width:900px}
+.tag b{color:#E5E9F1;font-weight:500}
+.chips{display:flex;gap:14px;margin-top:6px}
+.chip{font-family:"IBM Plex Mono",monospace;font-size:21px;padding:8px 18px;border:1.5px solid #3A4766;border-radius:999px;color:#9DB0FF}
+.chip.g{border-color:#6FD39C;color:#6FD39C}
+.cmd{position:absolute;left:96px;bottom:48px;font-family:"IBM Plex Mono",monospace;font-size:22px;color:#7D88A0}
+.cmd i{font-style:normal;color:#6FD39C}.cmd u{text-decoration:none;color:#9DB0FF}
+</style>
+<div class="grid"></div><div class="glow"></div>
+<div class="wrap">
+  <div class="row">
+    <svg viewBox="0 0 128 128"><defs><linearGradient id="h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7F94FF"/><stop offset="1" stop-color="#2C47C4"/></linearGradient></defs>
+    <rect width="128" height="128" rx="28" fill="#161D30" stroke="#ffffff18"/>
+    <path d="M10 72H118C114 96 94 108 64 108S18 96 10 72Z" fill="url(#h)"/>
+    <g stroke="#161D30" stroke-width="4" stroke-linecap="round"><line x1="40" y1="80" x2="44" y2="94"/><line x1="64" y1="80" x2="64" y2="98"/><line x1="88" y1="80" x2="84" y2="94"/></g>
+    <polyline points="34,46 50,62 94,20" fill="none" stroke="#6FD39C" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 118Q34 111 46 118T70 118T94 118T106 118" fill="none" stroke="#7F94FF" stroke-opacity=".55" stroke-width="4" stroke-linecap="round"/></svg>
+    <h1>Shipwright</h1>
+  </div>
+  <p class="tag"><b>AI-assisted release QA.</b> Tells intended changes from regressions, writes the Playwright tests, and leaves every call to a human.</p>
+  <div class="chips"><span class="chip">Gate 1 · scope</span><span class="chip">Gate 2 · tests</span><span class="chip g">Gate 3 · ship / hold</span></div>
+</div>
+<div class="cmd"><i>›</i> <u>/qa-coverage release</u> "2026-09 R4"</div>

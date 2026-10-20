@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/social-preview.png" alt="Shipwright: AI-assisted release QA" width="100%">
+</p>
+
 # Shipwright
 
 **AI-assisted release QA that keeps a Playwright suite true to what actually shipped.**
