@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img"><title>Shipwright logo: a folded paper boat on the water, its sail creased into a check mark</title><defs><clipPath id="tile"><rect width="160" height="160" rx="34"/></clipPath></defs><rect width="160" height="160" rx="34" fill="#0E1320"/><g clip-path="url(#tile)"><path d="M80 30L112 100H48Z" fill="#F2F5FA"/>
+<path d="M80 30L80 100H48Z" fill="#C9D2E6"/>
+<path d="M22 94H138L116 120H44Z" fill="#E5E9F1"/>
+<path d="M22 94L48 100L44 120Z" fill="#AEB8CC"/><path d="M138 94L112 100L116 120Z" fill="#AEB8CC"/>
+<path d="M48 100H112L116 120H44Z" fill="#F2F5FA"/>
+<polyline points="66,74 77,85 98,58" fill="none" stroke="#6FD39C" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-10 118Q2 112 14 118T38 118T62 118T86 118T110 118T134 118T158 118T182 118V170H-10Z" fill="#2C47C4"/><path d="M-10 127Q2 121 14 127T38 127T62 127T86 127T110 127T134 127T158 127T182 127V170H-10Z" fill="#22389E"/></g></svg>

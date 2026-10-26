@@ -16,16 +16,18 @@ h1{font-family:"Archivo",Arial,sans-serif;font-weight:800;font-stretch:125%;font
 .chip.g{border-color:#6FD39C;color:#6FD39C}
 .cmd{position:absolute;left:96px;bottom:48px;font-family:"IBM Plex Mono",monospace;font-size:22px;color:#7D88A0}
 .cmd i{font-style:normal;color:#6FD39C}.cmd u{text-decoration:none;color:#9DB0FF}
+.name{display:grid;gap:14px}.motto{font-family:"Archivo",Arial,sans-serif;font-style:italic;font-weight:500;font-stretch:100%;font-size:34px;color:#E0B07A;letter-spacing:.01em}
 </style>
 <div class="grid"></div><div class="glow"></div>
 <div class="wrap">
   <div class="row">
-    <svg viewBox="0 0 128 128"><defs><linearGradient id="h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7F94FF"/><stop offset="1" stop-color="#2C47C4"/></linearGradient></defs>
-    <rect width="128" height="128" rx="28" fill="#161D30" stroke="#ffffff18"/>
-    <path d="M10 72H118C114 96 94 108 64 108S18 96 10 72Z" fill="url(#h)"/>
-    <g stroke="#161D30" stroke-width="4" stroke-linecap="round"><line x1="40" y1="80" x2="44" y2="94"/><line x1="64" y1="80" x2="64" y2="98"/><line x1="88" y1="80" x2="84" y2="94"/></g>
-    <polyline points="34,46 50,62 94,20" fill="none" stroke="#6FD39C" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 118Q34 111 46 118T70 118T94 118T106 118" fill="none" stroke="#7F94FF" stroke-opacity=".55" stroke-width="4" stroke-linecap="round"/></svg>
-    <h1>Shipwright</h1>
+    <svg viewBox="0 0 160 160"><defs><clipPath id="tile"><rect width="160" height="160" rx="34"/></clipPath></defs><rect width="160" height="160" rx="34" fill="#161D30" stroke="#ffffff18"/><g clip-path="url(#tile)"><g stroke="#C9955A" stroke-width="6" stroke-linecap="round"><line x1="94.8" y1="86.1" x2="128.0" y2="99.9"/><line x1="86.1" y1="94.8" x2="99.9" y2="128.0"/><line x1="73.9" y1="94.8" x2="60.1" y2="128.0"/><line x1="65.2" y1="86.1" x2="32.0" y2="99.9"/><line x1="65.2" y1="73.9" x2="32.0" y2="60.1"/><line x1="73.9" y1="65.2" x2="60.1" y2="32.0"/><line x1="86.1" y1="65.2" x2="99.9" y2="32.0"/><line x1="94.8" y1="73.9" x2="128.0" y2="60.1"/></g>
+ <g stroke="#E0B07A" stroke-width="9" stroke-linecap="round"><line x1="128.0" y1="99.9" x2="139.1" y2="104.5"/><line x1="99.9" y1="128.0" x2="104.5" y2="139.1"/><line x1="60.1" y1="128.0" x2="55.5" y2="139.1"/><line x1="32.0" y1="99.9" x2="20.9" y2="104.5"/><line x1="32.0" y1="60.1" x2="20.9" y2="55.5"/><line x1="60.1" y1="32.0" x2="55.5" y2="20.9"/><line x1="99.9" y1="32.0" x2="104.5" y2="20.9"/><line x1="128.0" y1="60.1" x2="139.1" y2="55.5"/></g>
+ <circle cx="80" cy="80" r="42" fill="none" stroke="#C08A4A" stroke-width="9"/>
+ <circle cx="80" cy="80" r="42" fill="none" stroke="#E0B07A" stroke-width="2" stroke-opacity=".6"/>
+ <circle cx="80" cy="80" r="21" fill="#18213A" stroke="#C08A4A" stroke-width="5"/>
+ <polyline points="70,80 77.5,87.5 91,72" fill="none" stroke="#6FD39C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+    <div class="name"><h1>Shipwright</h1><p class="motto">You steer every release.</p></div>
   </div>
   <p class="tag"><b>AI-assisted release QA.</b> Tells intended changes from regressions, writes the Playwright tests, and leaves every call to a human.</p>
   <div class="chips"><span class="chip">Gate 1 · scope</span><span class="chip">Gate 2 · tests</span><span class="chip g">Gate 3 · ship / hold</span></div>

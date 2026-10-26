@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="t">
+  <title id="t">Shipwright logo: a ship in a bottle, its mainsail marked with a check</title>
+  <defs>
+    <clipPath id="bottle-in"><path d="M44 46H112Q120 46 124 57L128 70H140V94H128L124 107Q120 118 112 118H44Q16 118 16 82Q16 46 44 46Z"/></clipPath>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4E68E8"/><stop offset="1" stop-color="#22389E"/></linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9DB0FF" stop-opacity=".18"/><stop offset="1" stop-color="#9DB0FF" stop-opacity=".06"/></linearGradient>
+  </defs>
+  <rect width="160" height="160" rx="34" fill="#0E1320"/>
+  <!-- glass -->
+  <path d="M44 46H112Q120 46 124 57L128 70H140V94H128L124 107Q120 118 112 118H44Q16 118 16 82Q16 46 44 46Z" fill="url(#glass)"/>
+  <g clip-path="url(#bottle-in)">
+    <!-- sea -->
+    <path d="M10 100Q22 94 34 100T58 100T82 100T106 100T130 100V130H10Z" fill="url(#sea)"/>
+    <!-- hull -->
+    <path d="M40 94H108L100 106Q98 108 95 108H52Q49 108 47 106Z" fill="#C08A4A"/>
+    <path d="M40 94H108L106 97H42Z" fill="#E0B07A"/>
+    <!-- mast + pennant -->
+    <line x1="72" y1="52" x2="72" y2="95" stroke="#E5E9F1" stroke-width="3" stroke-linecap="round"/>
+    <path d="M72 51L84 54.5L72 58Z" fill="#6FD39C"/>
+    <!-- jib -->
+    <path d="M69 60L69 89L49 89Z" fill="#C9D2E6"/>
+    <!-- mainsail with check -->
+    <path d="M75 60Q99 70 101 89H75Z" fill="#F2F5FA"/>
+    <polyline points="79.5,77 85,83 95,70" fill="none" stroke="#1F9D62" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- bottle outline, highlight, cork -->
+  <path d="M44 46H112Q120 46 124 57L128 70H140V94H128L124 107Q120 118 112 118H44Q16 118 16 82Q16 46 44 46Z" fill="none" stroke="#9DB0FF" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M30 62Q24 72 25 86" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3.5" stroke-linecap="round"/>
+  <rect x="139" y="71" width="12" height="22" rx="3.5" fill="#C9955A"/>
+  <line x1="143" y1="74" x2="143" y2="90" stroke="#A8733D" stroke-width="1.5"/>
+</svg>

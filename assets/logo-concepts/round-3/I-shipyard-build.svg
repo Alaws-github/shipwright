@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img"><title>Shipwright logo: a ship's hull being built on the slipway, framed by a crane lowering a check mark</title><defs><clipPath id="tile"><rect width="160" height="160" rx="34"/></clipPath></defs><rect width="160" height="160" rx="34" fill="#0E1320"/><g clip-path="url(#tile)"><line x1="132" y1="20" x2="132" y2="126" stroke="#8C98B0" stroke-width="5"/>
+<path d="M126 126H138" stroke="#8C98B0" stroke-width="5"/>
+<line x1="60" y1="24" x2="140" y2="24" stroke="#8C98B0" stroke-width="5" stroke-linecap="round"/>
+<path d="M132 24L118 24L132 36Z" fill="#8C98B0"/>
+<line x1="76" y1="24" x2="76" y2="38" stroke="#C9D2E6" stroke-width="1.8"/>
+<polyline points="62,50 72,60 92,38" fill="none" stroke="#6FD39C" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24 80H124" stroke="#C08A4A" stroke-width="4" stroke-linecap="round"/>
+<line x1="40" y1="80" x2="40" y2="98.5" stroke="#E0B07A" stroke-width="3.5" stroke-linecap="round"/><line x1="52" y1="80" x2="52" y2="102.3" stroke="#E0B07A" stroke-width="3.5" stroke-linecap="round"/><line x1="64" y1="80" x2="64" y2="106.2" stroke="#E0B07A" stroke-width="3.5" stroke-linecap="round"/><line x1="76" y1="80" x2="76" y2="110.0" stroke="#E0B07A" stroke-width="3.5" stroke-linecap="round"/><line x1="88" y1="80" x2="88" y2="106.2" stroke="#E0B07A" stroke-width="3.5" stroke-linecap="round"/><line x1="100" y1="80" x2="100" y2="102.3" stroke="#E0B07A" stroke-width="3.5" stroke-linecap="round"/><line x1="112" y1="80" x2="112" y2="98.5" stroke="#E0B07A" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M24 80Q30 106 60 112L76 113L96 112Q118 106 124 80" fill="none" stroke="#C08A4A" stroke-width="5" stroke-linecap="round"/>
+<path d="M28 90Q36 104 60 108H100Q116 104 121 90" fill="none" stroke="#C08A4A" stroke-opacity=".7" stroke-width="3"/>
+<path d="M14 126H146" stroke="#3A4766" stroke-width="5" stroke-linecap="round"/>
+<path d="M50 113L46 126M102 113L106 126M76 113V126" stroke="#3A4766" stroke-width="3.5"/></g></svg>
