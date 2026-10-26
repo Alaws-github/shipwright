@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img"><title>Shipwright logo: a three-masted tall ship under full sail, its top foresail marked with a check</title><defs><clipPath id="tile"><rect width="160" height="160" rx="34"/></clipPath></defs><rect width="160" height="160" rx="34" fill="#0E1320"/><g clip-path="url(#tile)"><line x1="56" y1="22" x2="56" y2="110" stroke="#C9955A" stroke-width="3"/><line x1="84" y1="22" x2="84" y2="110" stroke="#C9955A" stroke-width="3"/><line x1="112" y1="22" x2="112" y2="110" stroke="#C9955A" stroke-width="3"/>
+<path d="M112 26L118 29L112 32Z" fill="#6FD39C"/>
+<path d="M44 40H68Q72 50 68 60H44Q48 50 44 40Z" fill="#F2F5FA"/><path d="M41 64H71Q75 76 71 88H41Q45 76 41 64Z" fill="#F2F5FA"/>
+<path d="M71 30H97Q101 41 97 52H71Q75 41 71 30Z" fill="#F2F5FA"/><path d="M68 56H100Q104 70 100 84H68Q72 70 68 56Z" fill="#F2F5FA"/>
+<path d="M100 28H124Q128 38 124 48H100Q104 38 100 28Z" fill="#1F9D62"/><polyline points="105,38 110,43 119,33" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M97 52H127Q131 65 127 78H97Q101 65 97 52Z" fill="#F2F5FA"/>
+<path d="M120 100L148 82L134 100Z" fill="#C9D2E6"/>
+<line x1="120" y1="100" x2="150" y2="80" stroke="#C9955A" stroke-width="2.5"/>
+<path d="M18 98H142L130 120H34Q24 116 18 98Z" fill="#7A4A22"/>
+<path d="M18 98H142L139 104H20Z" fill="#C08A4A"/>
+<g fill="#E0B07A"><rect x="44" y="108" width="6" height="4" rx="1"/><rect x="60" y="108" width="6" height="4" rx="1"/><rect x="76" y="108" width="6" height="4" rx="1"/><rect x="92" y="108" width="6" height="4" rx="1"/><rect x="108" y="108" width="6" height="4" rx="1"/></g>
+<path d="M-10 124Q2 118 14 124T38 124T62 124T86 124T110 124T134 124T158 124T182 124V170H-10Z" fill="#2C47C4"/><path d="M-10 133Q2 127 14 133T38 133T62 133T86 133T110 133T134 133T158 133T182 133V170H-10Z" fill="#22389E"/></g></svg>

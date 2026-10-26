@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img"><title>Shipwright logo: a lighthouse shining a green all-clear light</title><defs><clipPath id="tile"><rect width="160" height="160" rx="34"/></clipPath></defs><rect width="160" height="160" rx="34" fill="#0E1320"/><g clip-path="url(#tile)"><path d="M88 46L150 26V66Z" fill="#6FD39C" fill-opacity=".22"/>
+ <path d="M72 46L10 26V66Z" fill="#6FD39C" fill-opacity=".12"/>
+ <path d="M68 24Q80 14 92 24Z" fill="#C0392B"/>
+ <rect x="68" y="24" width="24" height="5" fill="#E5E9F1"/>
+ <rect x="70" y="30" width="20" height="16" rx="2" fill="#6FD39C"/>
+ <line x1="80" y1="30" x2="80" y2="46" stroke="#0E1320" stroke-width="2"/>
+ <rect x="64" y="46" width="32" height="5" rx="1.5" fill="#E5E9F1"/>
+ <path d="M68 51H92L98 124H62Z" fill="#E5E9F1"/>
+ <path d="M66.6 68H93.4L94.6 84H65.4ZM64.2 100H95.8L97 116H63Z" fill="#C0392B"/>
+ <path d="M14 128Q26 121 38 128T62 128T86 128T110 128T134 128T158 128V160H0V128Q4 125 14 128Z" fill="#2C47C4"/>
+ <path d="M2 128H158" stroke="none"/></g></svg>
