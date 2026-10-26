@@ -1,8 +1,10 @@
 <p align="center">
-  <img src="assets/social-preview.png" alt="Shipwright: AI-assisted release QA" width="100%">
+  <img src="assets/social-preview.png" alt="Shipwright: AI-assisted release QA. You steer every release." width="100%">
 </p>
 
 # Shipwright
+
+> ***You steer every release.***
 
 **AI-assisted release QA that keeps a Playwright suite true to what actually shipped.**
 
