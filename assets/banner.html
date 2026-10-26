@@ -20,11 +20,37 @@ h1{font-family:"Archivo",Arial,sans-serif;font-weight:800;font-stretch:125%;font
 <div class="grid"></div><div class="glow"></div>
 <div class="wrap">
   <div class="row">
-    <svg viewBox="0 0 128 128"><defs><linearGradient id="h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7F94FF"/><stop offset="1" stop-color="#2C47C4"/></linearGradient></defs>
-    <rect width="128" height="128" rx="28" fill="#161D30" stroke="#ffffff18"/>
-    <path d="M10 72H118C114 96 94 108 64 108S18 96 10 72Z" fill="url(#h)"/>
-    <g stroke="#161D30" stroke-width="4" stroke-linecap="round"><line x1="40" y1="80" x2="44" y2="94"/><line x1="64" y1="80" x2="64" y2="98"/><line x1="88" y1="80" x2="84" y2="94"/></g>
-    <polyline points="34,46 50,62 94,20" fill="none" stroke="#6FD39C" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 118Q34 111 46 118T70 118T94 118T106 118" fill="none" stroke="#7F94FF" stroke-opacity=".55" stroke-width="4" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 160 160">
+  
+  <defs>
+    <clipPath id="bottle-in"><path d="M44 46H112Q120 46 124 57L128 70H140V94H128L124 107Q120 118 112 118H44Q16 118 16 82Q16 46 44 46Z"/></clipPath>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4E68E8"/><stop offset="1" stop-color="#22389E"/></linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9DB0FF" stop-opacity=".18"/><stop offset="1" stop-color="#9DB0FF" stop-opacity=".06"/></linearGradient>
+  </defs>
+  <rect width="160" height="160" rx="34" fill="#161D30" stroke="#ffffff18"/>
+  <!-- glass -->
+  <path d="M44 46H112Q120 46 124 57L128 70H140V94H128L124 107Q120 118 112 118H44Q16 118 16 82Q16 46 44 46Z" fill="url(#glass)"/>
+  <g clip-path="url(#bottle-in)">
+    <!-- sea -->
+    <path d="M10 100Q22 94 34 100T58 100T82 100T106 100T130 100V130H10Z" fill="url(#sea)"/>
+    <!-- hull -->
+    <path d="M40 94H108L100 106Q98 108 95 108H52Q49 108 47 106Z" fill="#C08A4A"/>
+    <path d="M40 94H108L106 97H42Z" fill="#E0B07A"/>
+    <!-- mast + pennant -->
+    <line x1="72" y1="52" x2="72" y2="95" stroke="#E5E9F1" stroke-width="3" stroke-linecap="round"/>
+    <path d="M72 51L84 54.5L72 58Z" fill="#6FD39C"/>
+    <!-- jib -->
+    <path d="M69 60L69 89L49 89Z" fill="#C9D2E6"/>
+    <!-- mainsail with check -->
+    <path d="M75 60Q99 70 101 89H75Z" fill="#F2F5FA"/>
+    <polyline points="79.5,77 85,83 95,70" fill="none" stroke="#1F9D62" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- bottle outline, highlight, cork -->
+  <path d="M44 46H112Q120 46 124 57L128 70H140V94H128L124 107Q120 118 112 118H44Q16 118 16 82Q16 46 44 46Z" fill="none" stroke="#9DB0FF" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M30 62Q24 72 25 86" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3.5" stroke-linecap="round"/>
+  <rect x="139" y="71" width="12" height="22" rx="3.5" fill="#C9955A"/>
+  <line x1="143" y1="74" x2="143" y2="90" stroke="#A8733D" stroke-width="1.5"/>
+</svg>
     <h1>Shipwright</h1>
   </div>
   <p class="tag"><b>AI-assisted release QA.</b> Tells intended changes from regressions, writes the Playwright tests, and leaves every call to a human.</p>
