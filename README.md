@@ -1,27 +1,37 @@
-<p align="center">
-  <img src="assets/social-preview.png" alt="Shipwright: AI-assisted release QA. You steer every release." width="100%">
-</p>
+<div align="center">
+
+<a href="https://github.com/Alaws-github/shipwright">
+  <img src="assets/social-preview.png" alt="Shipwright: AI-assisted release QA. You steer every release." width="100%" />
+</a>
 
 # Shipwright
 
-> ***You steer every release.***
+### AI-assisted release QA that keeps a Playwright suite true to what actually shipped
 
-**AI-assisted release QA that keeps a Playwright suite true to what actually shipped.**
+***You steer every release.***
 
-![Playwright](https://img.shields.io/badge/Playwright-1.64-2EAD33?logo=playwright&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
-![Node](https://img.shields.io/badge/Node-20%2B-339933?logo=node.js&logoColor=white)
-![Claude Code](https://img.shields.io/badge/Claude_Code-skill_%2B_hooks-D97757)
-![Jira](https://img.shields.io/badge/Jira_%2B_Confluence-integrated-0052CC?logo=jira&logoColor=white)
+<p>
+<a href="https://github.com/Alaws-github/shipwright"><img src="https://img.shields.io/github/stars/Alaws-github/shipwright?style=for-the-badge&logo=github&label=Star&color=C08A4A&labelColor=18213A" alt="GitHub stars"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-C08A4A?style=for-the-badge&labelColor=18213A" alt="License MIT"></a>
+<a href="https://playwright.dev"><img src="https://img.shields.io/badge/Playwright-1.64-6FD39C?style=for-the-badge&logo=playwright&logoColor=white&labelColor=18213A" alt="Playwright 1.64"></a>
+<a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5-E0B07A?style=for-the-badge&logo=typescript&logoColor=white&labelColor=18213A" alt="TypeScript 5"></a>
+<a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node-20%2B-E0B07A?style=for-the-badge&logo=node.js&logoColor=white&labelColor=18213A" alt="Node 20+"></a>
+<a href="#%EF%B8%8F-architecture"><img src="https://img.shields.io/badge/Claude%20Code-Skill%20%2B%20Hooks-D97757?style=for-the-badge&labelColor=18213A" alt="Claude Code skill and hooks"></a>
+<a href="#%EF%B8%8F-architecture"><img src="https://img.shields.io/badge/Jira%20%2B%20Confluence-Integrated-0052CC?style=for-the-badge&logo=jira&logoColor=white&labelColor=18213A" alt="Jira and Confluence integrated"></a>
+</p>
 
-Shipwright is a release-QA workflow for any web project that has a Jira board and a deployed test environment. It grew out of the process I used on the Anser project, and I rebuilt it as a kit that installs on a new project by editing a few config files. A QA analyst runs one command, and Shipwright:
+[**🚀 Quick Start**](#-quick-start) · [**🧭 How it works**](#-how-it-works) · [**⚖️ Change or regression?**](#%EF%B8%8F-the-hard-part-intended-change-or-regression) · [**🛡️ Guardrails**](#%EF%B8%8F-guardrails) · [**🏗️ Architecture**](#%EF%B8%8F-architecture) · [**📖 Example run**](docs/example-release-run.md) · [**🖼️ Case study**](docs/index.html)
 
-- reads every ticket in a release from Jira
-- runs the regression suite against the deployed build and works out which failures are intended changes and which are regressions
-- explores the changed areas of the live app in a real browser
-- drafts, writes and stabilises new Playwright tests
-- publishes a QA coverage report to Confluence
-- transitions tickets, comments with evidence and files linked bugs in Jira
+</div>
+
+**Shipwright is a release-QA workflow for any web project that has a Jira board and a deployed test environment.** It grew out of the process I used on the Anser project, and I rebuilt it as a kit that installs on a new project by editing a few config files. A QA analyst runs one command, and Shipwright does the rest:
+
+- 📥 **Reads every ticket** in a release from Jira.
+- 🔴 **Runs the regression suite** against the deployed build and works out which failures are intended changes and which are regressions.
+- 🧭 **Explores the changed areas** of the live app in a real browser.
+- ✍️ **Drafts, writes and stabilises** new Playwright tests.
+- 📊 **Publishes a QA coverage report** to Confluence.
+- 🎫 **Transitions tickets**, comments with evidence and files linked bugs in Jira.
 
 **The analyst makes every judgement call at three review gates.** Nothing is written to Jira or Confluence until the analyst has approved the exact list of changes.
 
@@ -29,32 +39,50 @@ Shipwright is a release-QA workflow for any web project that has a Jira board an
 
 ---
 
-## Contents
+## Feature grid
 
-1. [The problem](#the-problem)
-2. [What I built](#what-i-built)
-3. [How it works](#how-it-works)
-4. [The hard part: intended change or regression?](#the-hard-part-intended-change-or-regression)
-5. [Guardrails](#guardrails)
-6. [Architecture](#architecture)
-7. [Engineering highlights](#engineering-highlights)
-8. [Security model](#security-model)
-9. [Lessons codified from a mature suite](#lessons-codified-from-a-mature-suite)
-10. [From one project to any project](#from-one-project-to-any-project)
-11. [Repository layout](#repository-layout)
-12. [Using it on your project](#using-it-on-your-project)
-13. [Skills demonstrated](#skills-demonstrated)
+| | |
+|---|---|
+| 🚦 **Three human gates** | The agent stops at coverage impact, draft approval and final decisions. The analyst answers by editing a file, so every decision is reviewable and diffable. |
+| ⚖️ **Change vs regression** | Every unexpected failure lands in one of five classes, each with its own evidence bar. When the evidence is ambiguous, the agent asks instead of guessing. |
+| 👀 **Observed, not assumed** | No test is written for behaviour the agent hasn't seen in the live app. Done in Jira does not mean deployed. |
+| 🔒 **Tool-enforced secrets** | Deny rules plus a `PreToolUse` hook stop the agent reading credentials through any tool, shell included. |
+| 🧾 **Docs that can't drift** | `qa-ledger` generates the test index and Jira mapping from the specs, and its `--check` mode fails CI on stale output. |
+| 🆔 **Permanent test IDs** | IDs are scoped to the ticket that created them, so two branches can never collide and nothing is ever renumbered. |
+| 🔁 **Bounded fix loop** | At most 3 fix attempts per failing test, each with a specific diagnosis. Assertions are never weakened to get green. |
+| 📦 **Portable kit** | All project-specific values live in one `workflow.toml`, with a 7-step setup guide for a new project. |
 
-**Deeper reading:**
-
-- [docs/example-release-run.md](docs/example-release-run.md): a full release run, gate by gate
-- [docs/architecture.md](docs/architecture.md): components, data flow and sequence diagrams
-- [docs/design-decisions.md](docs/design-decisions.md): the key decisions, the alternatives and the trade-offs
-- [docs/index.html](docs/index.html): a one-page visual case study (works with GitHub Pages)
+Built for **QA analysts**, **test automation engineers** and **teams shipping every sprint** who want an agent's speed without letting it mark its own homework.
 
 ---
 
-## The problem
+## 🚀 Quick Start
+
+**Prerequisites:** Node 20+, Google Chrome, Claude Code, the Atlassian connector, and a QA account on the test environment.
+
+```bash
+# 1. Copy everything in qa-coverage-kit/ (except SETUP.md) into your repo root
+# 2. Fill in the REQUIRED values in workflow.toml
+cd playwright-qa/scripts
+npm install
+npx playwright install chromium
+cp .env.example .env              # fill in BASE_URL, QA_EMAIL, QA_PASSWORD yourself
+npm run setup                     # signs in, caches the session
+npm test                          # MAN-smoke-1 should pass
+npm run qa:ledger -- --check
+```
+
+Then adapt three app-specific files (`utils/auth.ts`, `pages/HomePage.ts`, and the App map in `playwright-qa/CLAUDE.md`). Restart Claude Code to load the Playwright MCP server, and start with a single ticket:
+
+```text
+/qa-coverage PROJ-123
+```
+
+The full guide is in [qa-coverage-kit/SETUP.md](qa-coverage-kit/SETUP.md).
+
+---
+
+## 🧩 The problem
 
 On a project that ships every sprint, the end-to-end suite drifts away from the app after every release. Each release brings three recurring problems.
 
@@ -75,7 +103,7 @@ AI agents can do most of this work quickly. Left unchecked, though, they "fix" t
 
 ---
 
-## What I built
+## 🔨 What I built
 
 I designed the workflow and wrote everything in this repo:
 
@@ -91,7 +119,7 @@ I designed the workflow and wrote everything in this repo:
 
 ---
 
-## How it works
+## 🧭 How it works
 
 ### Three modes
 
@@ -143,17 +171,17 @@ A Gate 1 excerpt (see the [full example run](docs/example-release-run.md)):
 
 ---
 
-## The hard part: intended change or regression?
+## ⚖️ The hard part: intended change or regression?
 
 This is where most of the value is. Every unexpected failure in the baseline run goes into exactly one class, and each class has an **evidence bar**:
 
 | Class | Evidence required | Action |
 |---|---|---|
-| **Intended change** | A ticket *in this release* describes the new behaviour, **and** the live app shows exactly that | Propose updating the test at Gate 1, citing ticket + AC. Tag the test with that ticket |
-| **Test mechanics** | Behaviour is unchanged. The element, text and outcome still exist, but markup or role moved | Fix the locator without approval. **What the test asserts must not change** |
-| **Possible regression** | Behaviour differs and **no ticket in scope accounts for it** | **Don't touch the test.** Report it, attributed to the likely ticket through `git log` on the affected route, with a confidence level |
-| **Environment** | Session expiry, fixture drift, leftover data, toolchain crash, or the suite running ahead of the deployed build | Fix the test or fixture and log an `ISS-TS-<slug>` known issue |
-| **Undecided** | Evidence fits two classes | Don't guess. Present both at Gate 1 and let the analyst decide |
+| ✅ **Intended change** | A ticket *in this release* describes the new behaviour, **and** the live app shows exactly that | Propose updating the test at Gate 1, citing ticket + AC. Tag the test with that ticket |
+| 🔧 **Test mechanics** | Behaviour is unchanged. The element, text and outcome still exist, but markup or role moved | Fix the locator without approval. **What the test asserts must not change** |
+| 🚨 **Possible regression** | Behaviour differs and **no ticket in scope accounts for it** | **Don't touch the test.** Report it, attributed to the likely ticket through `git log` on the affected route, with a confidence level |
+| 🌩️ **Environment** | Session expiry, fixture drift, leftover data, toolchain crash, or the suite running ahead of the deployed build | Fix the test or fixture and log an `ISS-TS-<slug>` known issue |
+| ❓ **Undecided** | Evidence fits two classes | Don't guess. Present both at Gate 1 and let the analyst decide |
 
 Two details that matter in practice:
 
@@ -164,18 +192,18 @@ Known-bug tests (`test.fail()`) are excluded from classification. **If one start
 
 ---
 
-## Guardrails
+## 🛡️ Guardrails
 
 These are the skill's eight non-negotiables. They exist because each one is a predictable way an agent can go wrong.
 
-1. **Never write a test for behaviour you haven't observed in the live app.** Done in Jira does not mean deployed.
-2. **Never invent or renumber acceptance criteria.** If a ticket has no usable ACs, the agent asks a question rather than guessing a test case.
-3. **The how-versus-what rule.** The agent may change *how* a test finds things on its own. It may change *what* a test expects only with a ticket in scope or the analyst's approval.
-4. **Never weaken an assertion to get green.** A genuine app failure is a finding.
-5. **External writes happen only after Gate 3, as one approved batch.** Every Jira and Confluence write is listed with its exact content first. Write tools are also deliberately **not pre-approved**, so each one still raises a permission prompt.
-6. **Credentials never enter context or files.** This is enforced by tooling, not just by instructions (see [Security model](#security-model)).
-7. **Repo writes stay inside `playwright-qa/`.**
-8. **Gates are hard stops.** Nothing beyond the current gate runs without the analyst's reply.
+1. 👀 **Never write a test for behaviour you haven't observed in the live app.** Done in Jira does not mean deployed.
+2. 📋 **Never invent or renumber acceptance criteria.** If a ticket has no usable ACs, the agent asks a question rather than guessing a test case.
+3. 🎯 **The how-versus-what rule.** The agent may change *how* a test finds things on its own. It may change *what* a test expects only with a ticket in scope or the analyst's approval.
+4. 💪 **Never weaken an assertion to get green.** A genuine app failure is a finding.
+5. 📤 **External writes happen only after Gate 3, as one approved batch.** Every Jira and Confluence write is listed with its exact content first. Write tools are also deliberately **not pre-approved**, so each one still raises a permission prompt.
+6. 🔒 **Credentials never enter context or files.** This is enforced by tooling, not just by instructions (see [Security model](#-security-model)).
+7. 📁 **Repo writes stay inside `playwright-qa/`.**
+8. 🚦 **Gates are hard stops.** Nothing beyond the current gate runs without the analyst's reply.
 
 The run-to-green loop is bounded too: **at most 3 fix attempts per failing test**, then the agent stops and reports. Each failure gets a specific diagnosis:
 
@@ -185,7 +213,13 @@ The run-to-green loop is bounded too: **at most 3 fix attempts per failing test*
 
 ---
 
-## Architecture
+## 🏗️ Architecture
+
+```text
+QA analyst ──> Claude Code + /qa-coverage ──> Playwright MCP (explore) ──> Deployed test env
+                      │                  └──> Playwright suite (run)   ──> Deployed test env
+                      └──> Jira + Confluence (read freely, write only after Gate 3)
+```
 
 ```mermaid
 flowchart LR
@@ -207,13 +241,13 @@ flowchart LR
 
 There are two separate browser paths, each for a different job. **Playwright MCP** explores the app interactively, so the agent sees what actually shipped. **The Playwright test runner** executes the suite. Both share one saved login (`fixtures/auth.json`), which the agent itself can never read.
 
-Sequence diagrams and component details are in [docs/architecture.md](docs/architecture.md).
+> **Note:** For sequence diagrams and component details, see [docs/architecture.md](docs/architecture.md).
 
 ---
 
-## Engineering highlights
+## ⚙️ Engineering highlights
 
-### Collision-free, permanent test IDs
+### 🆔 Collision-free, permanent test IDs
 
 Tests are numbered **within the ticket that created them**, not from a global counter:
 
@@ -227,7 +261,7 @@ Tests are numbered **within the ticket that created them**, not from a global co
 
 Two analysts, or two agent runs on separate branches, can never pick the same ID, and nothing is ever renumbered. Removing a test retires its ID.
 
-### The spec is the documentation
+### 📝 The spec is the documentation
 
 Every test opens with a machine-parsable docstring. It includes a plain-language `Verifies:` line for non-technical readers:
 
@@ -239,7 +273,7 @@ test('PROJ-327-1 — order total includes tax', { tag: ['@PROJ-327'] }, async ({
 
 The ID records the originating ticket. The `@tags` record **every** ticket that later changed the test, so the Jira-to-test mapping stays accurate as behaviour evolves.
 
-### `qa-ledger`: generated docs that can't drift
+### 🧾 `qa-ledger`: generated docs that can't drift
 
 [`qa-ledger.mjs`](qa-coverage-kit/playwright-qa/scripts/utils/qa-ledger.mjs) is about 350 lines of dependency-free Node. It parses spec files **statically**, without loading the Playwright config or `.env`, so it's safe to run anywhere, including CI. It:
 
@@ -261,15 +295,15 @@ Warnings:           0
 ─────────────────────────────
 ```
 
-### `qa-baseline`: a regression shortlist from the JSON report
+### 🔴 `qa-baseline`: a regression shortlist from the JSON report
 
 [`qa-baseline.mjs`](qa-coverage-kit/playwright-qa/scripts/utils/qa-baseline.mjs) walks Playwright's `results.json` and lists every failure and flaky pass with its test ID, location and first error line (ANSI codes stripped). It also sets `knownBugNowPassing` when a `test.fail()` test unexpectedly passes. It prints the run's start time so a stale report is obvious. This guards against a real trap: passing `--reporter=line` replaces the config's reporters, so no new JSON is written.
 
-### Auth that never expires mid-run
+### 🔑 Auth that never expires mid-run
 
 [`auth.setup.ts`](qa-coverage-kit/playwright-qa/scripts/tests/auth.setup.ts) signs in once and caches the session. It reuses that session **only while it is younger than `AUTH_REUSE_MINUTES`**, a value sized as *session lifetime minus longest run*. The config's `globalTimeout` caps the run time so the two can't drift apart. Mid-run session expiry otherwise looks exactly like a wide regression.
 
-### Built for a shared, live environment
+### 🌐 Built for a shared, live environment
 
 - `workers: 1` and `fullyParallel: false`: tests never collide on data or logins.
 - Records the suite creates carry a fixed name prefix and are swept **before and after** each run, so a single crashed `afterAll` can't leave orphans that block the next run.
@@ -277,7 +311,7 @@ Warnings:           0
 
 ---
 
-## Security model
+## 🔐 Security model
 
 The agent drives a real logged-in browser and runs shell commands, so credential safety is enforced in **two layers**:
 
@@ -287,11 +321,11 @@ The agent drives a real logged-in browser and runs shell commands, so credential
 Verified behaviour:
 
 | Command | Result |
-|---|---|
-| `cat playwright-qa/scripts/.env` | **blocked** (exit 2) |
-| `Get-Content fixtures/auth.json` | **blocked** (exit 2) |
-| `cat .claude/.env` | allowed |
-| `npm test` | allowed |
+|---|:--:|
+| `cat playwright-qa/scripts/.env` | ⛔ **blocked** (exit 2) |
+| `Get-Content fixtures/auth.json` | ⛔ **blocked** (exit 2) |
+| `cat .claude/.env` | ✅ allowed |
+| `npm test` | ✅ allowed |
 
 Beyond credentials:
 
@@ -301,7 +335,7 @@ Beyond credentials:
 
 ---
 
-## Lessons codified from a mature suite
+## 📚 Lessons codified from a mature suite
 
 [QA-LESSONS.md](qa-coverage-kit/playwright-qa/QA-LESSONS.md) holds 17 durable rules. Each is a pattern rather than an incident report, with a **Why** and an **Enforced by** line. The agent re-reads them before writing any locator or wait. Some examples:
 
@@ -318,24 +352,39 @@ Beyond credentials:
 
 ---
 
-## From one project to any project
+## 🔄 From one project to any project
 
 The original ran on Anser and was wired into that project's routes, priority scheme, release pipeline and a companion `/bug-triage` skill. To make it reusable, I separated **workflow** from **project facts**:
 
-| Anser version | This kit | Why |
-|---|---|---|
-| Called `/bug-triage` to file bugs | Files bugs itself: duplicate search, a triage table to confirm, create, link | No second skill to port |
-| Legacy `TC-nnn` IDs, reserved ranges | Only `<TICKET>-<n>` and `MAN-<slug>-<n>` | A new suite has no history to carry |
-| V8 code-coverage fixture + monocart reporter | Left out, portable later | Optional for a new project |
-| Release tracking ticket and feature specs required | Optional, switched on in `workflow.toml` | They depended on Anser's release pipeline |
-| Routes, priorities and timings in the skill text | Moved to `workflow.toml` and the suite's App map | Project values live in config |
-| Python secret-guard hook (needs `uv`) | Node hook | Node is already required by Playwright |
+| | **Anser version** | **This kit** | Why |
+|---|---|---|---|
+| 🐞 Bug filing | Called `/bug-triage` | Files bugs itself: duplicate search, a triage table to confirm, create, link | No second skill to port |
+| 🆔 Test IDs | Legacy `TC-nnn`, reserved ranges | Only `<TICKET>-<n>` and `MAN-<slug>-<n>` | A new suite has no history to carry |
+| 📈 Code coverage | V8 fixture + monocart reporter | Left out, portable later | Optional for a new project |
+| 🎫 Release tracking | Tracking ticket and feature specs required | Optional, switched on in `workflow.toml` | They depended on Anser's release pipeline |
+| ⚙️ Project values | Routes, priorities and timings in the skill text | Moved to `workflow.toml` and the suite's App map | Project values live in config |
+| 🔒 Secret guard | Python hook (needs `uv`) | Node hook | Node is already required by Playwright |
 
 Optional features **switch themselves off** when their config is empty. With no Confluence page configured, for example, the report stays in the draft file. With no tracking label, the release sign-off lives only in the report.
 
 ---
 
-## Repository layout
+## 📖 Documentation guide
+
+| Topic | What you'll find | Link |
+|---|---|---|
+| **Example release run** | A full release run, gate by gate | [example-release-run.md](docs/example-release-run.md) |
+| **Architecture** | Components, data flow and sequence diagrams | [architecture.md](docs/architecture.md) |
+| **Design decisions** | The key decisions, the alternatives and the trade-offs | [design-decisions.md](docs/design-decisions.md) |
+| **Visual case study** | A one-page visual case study (works with GitHub Pages) | [index.html](docs/index.html) |
+| **Setup guide** | 7-step adoption guide for a new project | [SETUP.md](qa-coverage-kit/SETUP.md) |
+| **The skill** | The workflow and its non-negotiables | [SKILL.md](qa-coverage-kit/.claude/skills/qa-coverage/SKILL.md) |
+| **Analyst's guide** | The process from the QA analyst's side | [playwright-qa/README.md](qa-coverage-kit/playwright-qa/README.md) |
+| **QA lessons** | 17 codified rules from a mature suite | [QA-LESSONS.md](qa-coverage-kit/playwright-qa/QA-LESSONS.md) |
+
+---
+
+## 🗂️ Repository layout
 
 ```text
 .
@@ -370,40 +419,14 @@ Optional features **switch themselves off** when their config is empty. With no 
 
 ---
 
-## Using it on your project
+## 🎓 Skills demonstrated
 
-Prerequisites: Node 20+, Google Chrome, Claude Code, the Atlassian connector, and a QA account on the test environment.
-
-```bash
-# 1. Copy everything in qa-coverage-kit/ (except SETUP.md) into your repo root
-# 2. Fill in the REQUIRED values in workflow.toml
-cd playwright-qa/scripts
-npm install
-npx playwright install chromium
-cp .env.example .env              # fill in BASE_URL, QA_EMAIL, QA_PASSWORD yourself
-npm run setup                     # signs in, caches the session
-npm test                          # MAN-smoke-1 should pass
-npm run qa:ledger -- --check
-```
-
-Then adapt three app-specific files (`utils/auth.ts`, `pages/HomePage.ts`, and the App map in `playwright-qa/CLAUDE.md`). Restart Claude Code to load the Playwright MCP server, and start with a single ticket:
-
-```text
-/qa-coverage PROJ-123
-```
-
-The full guide is in [qa-coverage-kit/SETUP.md](qa-coverage-kit/SETUP.md).
-
----
-
-## Skills demonstrated
-
-- **Test automation:** Playwright + TypeScript, Page Object Model, auth state caching, `test.fail()`/`test.skip()` semantics, stable locator strategy, flake diagnosis
-- **QA strategy:** regression vs intended-change classification, risk-sized coverage, outcome-based assertions, evidence-backed bug reports, release sign-off
-- **AI agent engineering:** designing a multi-step agent workflow with human-in-the-loop gates, bounded retry loops, resumable state, least-privilege tool permissions, and tool-enforced (not prompt-enforced) safety
-- **Tooling:** dependency-free Node CLIs, static parsing, generated documentation with CI staleness checks, cross-platform line-ending handling
-- **Integration:** Jira (JQL, transitions, issue links, comments), Confluence publishing, Playwright MCP, git-history attribution
-- **Platform thinking:** turning a project-specific tool into a configurable, documented kit that another team can adopt
+- 🎭 **Test automation:** Playwright + TypeScript, Page Object Model, auth state caching, `test.fail()`/`test.skip()` semantics, stable locator strategy, flake diagnosis
+- 🧪 **QA strategy:** regression vs intended-change classification, risk-sized coverage, outcome-based assertions, evidence-backed bug reports, release sign-off
+- 🤖 **AI agent engineering:** designing a multi-step agent workflow with human-in-the-loop gates, bounded retry loops, resumable state, least-privilege tool permissions, and tool-enforced (not prompt-enforced) safety
+- 🛠️ **Tooling:** dependency-free Node CLIs, static parsing, generated documentation with CI staleness checks, cross-platform line-ending handling
+- 🔗 **Integration:** Jira (JQL, transitions, issue links, comments), Confluence publishing, Playwright MCP, git-history attribution
+- 🏗️ **Platform thinking:** turning a project-specific tool into a configurable, documented kit that another team can adopt
 
 ---
 
@@ -411,4 +434,14 @@ The full guide is in [qa-coverage-kit/SETUP.md](qa-coverage-kit/SETUP.md).
 
 Released under the [MIT License](LICENSE). The example release run in `docs/` uses invented tickets and data.
 
-*Built by Andrew Lawrence.*
+---
+
+<div align="center">
+
+**Built by Andrew Lawrence**
+
+⚓ Human-steered · 🤖 AI-assisted · 🎭 Playwright-powered
+
+[⭐ Star on GitHub](https://github.com/Alaws-github/shipwright) · [🚀 Quick Start](#-quick-start) · [📖 Example release run](docs/example-release-run.md) · [🖼️ Visual case study](docs/index.html)
+
+</div>
