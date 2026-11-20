@@ -1,3 +1,4 @@
+// Smoke: proves the saved login works and the app's landing page renders.
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../../../pages/HomePage';
 

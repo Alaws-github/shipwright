@@ -10,6 +10,7 @@
     "test:smoke": "playwright test tests/core/smoke/smoke.spec.ts",
     "setup": "playwright test tests/auth.setup.ts",
     "report": "playwright show-report",
+    "typecheck": "tsc --noEmit",
     "qa:ledger": "node utils/qa-ledger.mjs",
     "qa:baseline": "node utils/qa-baseline.mjs"
   },

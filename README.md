@@ -381,6 +381,7 @@ Optional features **switch themselves off** when their config is empty. With no 
 | **The skill** | The workflow and its non-negotiables | [SKILL.md](qa-coverage-kit/.claude/skills/qa-coverage/SKILL.md) |
 | **Analyst's guide** | The process from the QA analyst's side | [playwright-qa/README.md](qa-coverage-kit/playwright-qa/README.md) |
 | **QA lessons** | 17 codified rules from a mature suite | [QA-LESSONS.md](qa-coverage-kit/playwright-qa/QA-LESSONS.md) |
+| **Working on this repo** | Rules, commands, coding standards and the lessons index for contributors and agents | [CLAUDE.md](CLAUDE.md) · [AGENTS.md](AGENTS.md) · [docs/README.md](docs/README.md) |
 
 ---
 
@@ -389,11 +390,19 @@ Optional features **switch themselves off** when their config is empty. With no 
 ```text
 .
 ├── README.md                         ← you are here
+├── CLAUDE.md · AGENTS.md             rules and ways of working, for agents and contributors
+├── CHANGELOG.md                      what changed, newest first
+├── package.json                      npm run check (no dependencies)
+├── scripts/                          lessons index + repo checks
 ├── docs/
+│   ├── README.md                     index of every doc
 │   ├── index.html                    one-page visual case study
 │   ├── example-release-run.md        a release run, gate by gate
 │   ├── architecture.md               components, data flow, sequences
-│   └── design-decisions.md           decisions, alternatives, trade-offs
+│   ├── design-decisions.md           decisions, alternatives, trade-offs
+│   ├── CODING-STANDARDS.md           naming, comments, structure
+│   ├── LESSONS.md · lessons/         rules learned, with a generated index
+│   └── context/project-history.md    who it is for, decisions, versions
 └── qa-coverage-kit/                  the installable kit
     ├── SETUP.md                      7-step adoption guide
     ├── workflow.toml                 all project-specific values

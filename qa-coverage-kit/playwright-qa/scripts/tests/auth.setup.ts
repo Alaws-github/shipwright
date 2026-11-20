@@ -1,9 +1,9 @@
-// Auth setup — runs once before the suite as the 'setup' project dependency.
-// Caches storage state in fixtures/auth.json and reuses it only while enough session is left
-// for a whole run (QA-LESSONS: auth-cache-reuse-must-cover-the-whole-run).
+// Signs in once before the suite runs (the 'setup' project) and saves the login to fixtures/auth.json.
+// Reuses the saved login only while enough session is left for a whole run
+// (QA-LESSONS: auth-cache-reuse-must-cover-the-whole-run).
 import { test as setup } from '@playwright/test';
 import { login } from '../utils/auth';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 
 const AUTH_FILE = 'fixtures/auth.json';
 const MAX_AGE_MS = Number(process.env.AUTH_REUSE_MINUTES ?? 10) * 60 * 1000;

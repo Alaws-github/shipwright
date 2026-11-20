@@ -1,0 +1,16 @@
+{
+  "name": "shipwright",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Repository checks for the Shipwright portfolio. No dependencies: every script uses Node built-ins only.",
+  "scripts": {
+    "check": "npm run check:lessons && npm run check:code && npm run check:suite",
+    "check:lessons": "node scripts/lessons-index.mjs --check",
+    "check:code": "node scripts/checks/repo-checks.mjs",
+    "check:suite": "node qa-coverage-kit/playwright-qa/scripts/utils/qa-ledger.mjs --check",
+    "lessons": "node scripts/lessons-index.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
