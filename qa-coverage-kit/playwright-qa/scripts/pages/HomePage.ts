@@ -1,8 +1,9 @@
-import { Page, Locator } from '@playwright/test';
+// Route: / . The page a signed-in user lands on.
+// TODO(setup): point `heading` at something that only renders once the page is ready.
+import type { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
-// Route: / — the page a signed-in user lands on.
-// TODO(setup): point `heading` at something that only renders once the page is ready.
+/** The home page: its ready marker and how to open it. */
 export class HomePage extends BasePage {
   readonly heading: Locator;
 
@@ -11,6 +12,7 @@ export class HomePage extends BasePage {
     this.heading = page.getByRole('heading', { level: 1 });
   }
 
+  /** Open the home page and wait until its heading has rendered. */
   async goto(): Promise<void> {
     await this.open('/', this.heading);
   }

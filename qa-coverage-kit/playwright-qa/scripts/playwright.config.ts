@@ -1,5 +1,5 @@
-// Playwright configuration for the QA suite.
-// workers: 1 + fullyParallel: false — sequential execution against a shared, live environment
+// Playwright settings for the QA suite: one worker, a time budget, and the reporters the skill reads.
+// workers: 1 + fullyParallel: false. Running one test at a time against a shared, live environment
 // prevents auth and data conflicts. Auth state is seeded by auth.setup.ts.
 //
 // Keep the json reporter: /qa-coverage's baseline step reads playwright-report/results.json
@@ -8,6 +8,7 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+/** The suite's Playwright settings: the setup project signs in, then chromium runs the specs with that login. */
 export default defineConfig({
   testDir: './tests',
   timeout: 60000,

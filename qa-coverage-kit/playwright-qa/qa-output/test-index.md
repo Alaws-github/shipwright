@@ -6,4 +6,4 @@
 
 | ID | Title | Ticket / story | Type | Priority | Status | Verifies | Location |
 |---|---|---|---|---|---|---|---|
-| MAN-smoke-1 | Signed-in user reaches the home page | MAN-smoke AC1 | Positive | Critical | Active | the saved login opens the home page without being sent back to sign in. | `tests/core/smoke/smoke.spec.ts:7` |
+| MAN-smoke-1 | Signed-in user reaches the home page | MAN-smoke AC1 | Positive | Critical | Active | the saved login opens the home page without being sent back to sign in. | `tests/core/smoke/smoke.spec.ts:8` |

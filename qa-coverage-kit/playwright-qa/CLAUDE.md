@@ -97,6 +97,7 @@ From `scripts/`:
 - **`test.skip()` at declaration** = a **permanent** skip for a test that cannot run (missing environment state, a removed flow) — not for a known bug. Record it in `README.md` → Permanently Skipped Tests and in `scripts/KNOWN-ISSUES.md`.
 - **`test.skip()` inside a test body** = a runtime-conditional skip when a live precondition isn't met at that moment. Deliberate for a shared, mutable environment — don't turn it into an unconditional skip or pass.
 - **Avoid `waitForLoadState('networkidle')`.** Apps with background polling or link prefetching may never go idle. Wait for a specific element or URL instead.
+- **Comments.** Every file starts with a header comment whose first sentence says what the file is for. Every export (page object class, helper, config) has a `/** ... */` comment directly above it. Inside code, comment the why, not the what, and name the lesson a line enforces (`// QA-LESSONS: <slug>`). No commented-out code.
 - **Records the suite creates** are named with a fixed prefix (e.g. `QA-auto …`) and swept by that prefix in `beforeAll` *and* `afterAll`. Never create a record without the prefix, and never widen a sweep beyond it.
 
 ---
